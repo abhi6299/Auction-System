@@ -4,6 +4,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <RelativeLayout
+        android:id="@+id/mainLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
     <ImageView
         android:id="@+id/iv_user"
@@ -105,6 +110,7 @@
         android:textSize="15sp"
         android:textColor="#ffffff"
         android:text="Old User? Sign in" />
+    </RelativeLayout>
 
 
 </RelativeLayout>

@@ -19,6 +19,7 @@ public class logout2 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_logout2);
+        getSupportActionBar().setTitle("Logout");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         btnLogout=findViewById(R.id.logout);
         btnLogout.setOnClickListener(new View.OnClickListener() {

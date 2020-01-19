@@ -27,6 +27,7 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        getSupportActionBar().setTitle("Register");
 
         etname=(EditText)findViewById(R.id.et_name);
         emailId=(EditText)findViewById(R.id.et_reg_email);
@@ -42,7 +43,10 @@ public class RegisterActivity extends AppCompatActivity {
         tvrgregister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(RegisterActivity.this, MainActivity.class));
+
+                Intent intent=new Intent(RegisterActivity.this,MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
             }
         });
         btnreglogin.setOnClickListener(new View.OnClickListener() {
@@ -78,7 +82,8 @@ public class RegisterActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                              if(task.isSuccessful())
                              {
-                                 Intent intent=new Intent(RegisterActivity.this,Main2custActivity.class);
+                                 Intent intent=new Intent(RegisterActivity.this,MainActivity.class);
+                                 Toast.makeText(RegisterActivity.this, "Register Successful", Toast.LENGTH_SHORT).show();
                                  intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                  startActivity(intent);
                              }
@@ -94,11 +99,51 @@ public class RegisterActivity extends AppCompatActivity {
         btnreglogin2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(RegisterActivity.this,Main2custActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
+                String email=emailId.getText().toString();
+                String pwd=password.getText().toString();
+                String rpwd=etreenterpassword.getText().toString();
+
+                //condition checking or authentication
+                if(email.isEmpty()){
+                    emailId.setError("Please enter email id");
+                    emailId.requestFocus();
+                }
+                else if(!(pwd.equals(rpwd)))
+                {
+                    Toast.makeText(RegisterActivity.this, "Password did not Match", Toast.LENGTH_SHORT).show();
+                }
+                //password checking
+                else if(pwd.isEmpty()){
+                    password.setError("Please enter your password");
+                    password.requestFocus();
+                }
+                else if(email.isEmpty() && pwd.isEmpty())
+                {
+                    Toast.makeText(RegisterActivity.this, "Fields Are Empty", Toast.LENGTH_SHORT).show();
+                }
+
+                else if(!(email.isEmpty() && pwd.isEmpty()))
+                {
+                    mauth.createUserWithEmailAndPassword(email,pwd).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if(task.isSuccessful())
+                            {
+                                Intent intent=new Intent(RegisterActivity.this,MainActivity.class);
+                                Toast.makeText(RegisterActivity.this, "Register Successful", Toast.LENGTH_SHORT).show();
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(intent);
+                            }
+                            else
+                            {
+                                Toast.makeText(RegisterActivity.this,task.getException().getMessage(),Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                }
             }
         });
+
 
     }
 }

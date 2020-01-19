@@ -19,13 +19,18 @@ public class myproduct extends AppCompatActivity {
     ListView lvGoods;
     DatabaseReference dbProduct;
     List<Product> productList;
+   String name1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_myproduct);
-
-        dbProduct = FirebaseDatabase.getInstance().getReference("products");
+        getSupportActionBar().setTitle("My Product");
+        if((getIntent().getExtras())!=null) {
+            Bundle b = getIntent().getExtras();
+            name1 = b.getString("mail5");
+       }
+        dbProduct = FirebaseDatabase.getInstance().getReference(name1);
 
         lvGoods=(ListView) findViewById(R.id.lvGoods);
         productList= new ArrayList<>();

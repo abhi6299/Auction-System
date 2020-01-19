@@ -10,6 +10,7 @@ public class payment2 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment2);
+        getSupportActionBar().setTitle("Payment Mode");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 }

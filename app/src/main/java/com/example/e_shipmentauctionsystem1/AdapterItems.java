@@ -12,5 +12,6 @@ public class AdapterItems
         this.ID=ID;
         this.product=product;
         //this. Description=Description;
+
     }
 }

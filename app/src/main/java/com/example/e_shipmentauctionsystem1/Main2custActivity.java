@@ -7,6 +7,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -19,6 +20,7 @@ import com.google.android.material.navigation.NavigationView;
 public class Main2custActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mtoggle;
+    String name1,name;
 
 
     @Override
@@ -50,8 +52,11 @@ public class Main2custActivity extends AppCompatActivity implements NavigationVi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2cust);
-
-
+//        if(getIntent().getExtras()!=null) {
+//            Bundle b = getIntent().getExtras();
+//            name1 = b.getString("mail1");
+//            name=name1.replaceAll("[.#$]","");
+//        }
 
         androidx.appcompat.widget.Toolbar toolbar1 = findViewById(R.id.toolbar1);
 
@@ -67,10 +72,35 @@ public class Main2custActivity extends AppCompatActivity implements NavigationVi
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        if(getIntent().getExtras()!=null) {
+            Bundle b = getIntent().getExtras();
+            name1 = b.getString("mail1");
+            name=name1.replaceAll("[.#$]","");
+        }
+        SharedPreferences prefs103 = getSharedPreferences("prefs103", MODE_PRIVATE);
+        name = prefs103.getString("mail_103",name);
+        //Toast.makeText(getApplicationContext(),"in main2 "+ name,Toast.LENGTH_SHORT).show();
+
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        SharedPreferences prefs103 = getSharedPreferences("prefs103", MODE_PRIVATE);
+        SharedPreferences.Editor editor103 = prefs103.edit();
+        editor103.putString("mail_103",name);
+        editor103.apply();
+        //Toast.makeText(getApplicationContext(),"in main2 stop "+ name,Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch(menuItem.getItemId()){
             case R.id.nac_chome:
                 Intent intent=new Intent(Main2custActivity.this,home2.class);
+                intent.putExtra("mail2",name);
                 startActivity(intent);
                 break;
             case R.id.nac_ccontactus:
@@ -79,6 +109,7 @@ public class Main2custActivity extends AppCompatActivity implements NavigationVi
                 break;
             case R.id.nac_cproduct:
                 Intent intent2=new Intent(Main2custActivity.this,myproduct.class);
+                intent2.putExtra("mail5",name);
                 startActivity(intent2);
                 break;
             case R.id.nac_cpayment:

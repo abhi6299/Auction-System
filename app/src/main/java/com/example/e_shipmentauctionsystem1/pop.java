@@ -17,6 +17,7 @@ import com.example.e_shipmentauctionsystem1.R;
 
 public class pop extends Activity {
     TextView edittext;
+    String name5;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,7 +29,9 @@ public class pop extends Activity {
         DisplayMetrics dm=new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
         Bundle b=getIntent().getExtras();
+
         String name=b.getString("predictedprice");
+        name5=b.getString("matrix");
         edittext=(TextView) findViewById(R.id.Confirm1);
         edittext.setText(name);
 
@@ -39,15 +42,20 @@ public class pop extends Activity {
         bu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(pop.this,Main2custActivity.class));
+
                 Toast.makeText(pop.this, "Product Added Successful", Toast.LENGTH_SHORT).show();
+                Intent intent=new Intent(pop.this,Main2custActivity.class);
+                intent.putExtra("mail1",name5);
+                startActivity(intent);
+
             }
         });
         bu_1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(pop.this,home2.class));
                 Toast.makeText(pop.this, "Product not Added", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(pop.this,home2.class));
+
 
             }
         });

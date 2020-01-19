@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/brlist"
+    android:background="@color/lightyorange"
     android:orientation="vertical">
 
     <ImageView
@@ -23,6 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
             android:text="Name"
+            android:textColor="#000405"
             android:textSize="30sp" />
 
         <Button
@@ -30,7 +31,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Select" />
+            android:text="Select"
+
+            android:background="@color/lightyellow"
+            />
     </LinearLayout>
 
 </LinearLayout>
